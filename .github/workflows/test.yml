@@ -1,0 +1,119 @@
+name: Automation Test Suite
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:    # allows manual trigger from GitHub UI
+
+jobs:
+  # ─── JOB 1: API TESTS ───────────────────────────────────────────────────────
+  api-tests:
+    name: API Tests (Cucumber + Supertest)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run API Cucumber tests
+        run: npm run test:api
+        env:
+          CI: true
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+
+      - name: Upload Cucumber JSON report as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-cucumber-report
+          path: reports/cucumber-report.json
+
+  # ─── JOB 2: UI TESTS ────────────────────────────────────────────────────────
+  ui-tests:
+    name: UI Tests (Playwright + Cucumber)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run UI Cucumber tests
+        run: npm run test:ui
+        env:
+          CI: true
+          BASE_URL: ${{ secrets.BASE_URL }}
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+
+      - name: Upload screenshots on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: failure-screenshots
+          path: reports/screenshots/
+
+      - name: Upload Cucumber JSON report as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-cucumber-report
+          path: reports/cucumber-report.json
+
+  # ─── JOB 3: UPLOAD TO XRAY ──────────────────────────────────────────────────
+  upload-to-xray:
+    name: Upload Results to Xray
+    runs-on: ubuntu-latest
+    needs: [api-tests, ui-tests]   # runs AFTER both test jobs complete
+    if: always()                   # run even if tests fail
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download UI test report
+        uses: actions/download-artifact@v4
+        with:
+          name: ui-cucumber-report
+          path: reports/
+
+      - name: Upload Cucumber JSON to Xray
+        run: node scripts/uploadToXray.js
+        env:
+          XRAY_CLIENT_ID: ${{ secrets.XRAY_CLIENT_ID }}
+          XRAY_CLIENT_SECRET: ${{ secrets.XRAY_CLIENT_SECRET }}
+          XRAY_PROJECT_KEY: ${{ secrets.XRAY_PROJECT_KEY }}
+          XRAY_TEST_PLAN_KEY: ${{ secrets.XRAY_TEST_PLAN_KEY }}

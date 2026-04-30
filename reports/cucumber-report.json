@@ -1,0 +1,427 @@
+[
+  {
+    "description": "  As a registered user\n  I want to log in to the website\n  So that I can access my account and place orders",
+    "elements": [
+      {
+        "description": "",
+        "id": "user-login-on-automation-exercise;successful-login-with-valid-credentials",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Successful login with valid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 372680292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am on the login page",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 987740957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I enter valid email and password",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 478117082
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "I click the login button",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 133125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "I should be logged in successfully",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:34"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 11026208,
+              "error_message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at Proxy.<anonymous> (/Users/sardoravaz/Downloads/automation-framework 2/node_modules/playwright/lib/matchers/expect.js:213:24)\n    at World.<anonymous> (/Users/sardoravaz/Downloads/automation-framework 2/src/step-definitions/ui.steps.ts:37:22)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "I should see my username in the header",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:40"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 282171833
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui",
+            "line": 1
+          },
+          {
+            "name": "@login",
+            "line": 1
+          },
+          {
+            "name": "@XRAY-101",
+            "line": 10
+          },
+          {
+            "name": "@smoke",
+            "line": 10
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login-on-automation-exercise;failed-login-with-invalid-credentials",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Failed login with invalid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 188072833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am on the login page",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 864815583
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 19,
+            "name": "I enter email \"invalid@test.com\" and password \"wrongpass\"",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 451289208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "I click the login button",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 117416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 21,
+            "name": "I should see an error message \"Your email or password is incorrect!\"",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9661374
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 10238790
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui",
+            "line": 1
+          },
+          {
+            "name": "@login",
+            "line": 1
+          },
+          {
+            "name": "@XRAY-102",
+            "line": 17
+          },
+          {
+            "name": "@regression",
+            "line": 17
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "user-login-on-automation-exercise",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "User Login on Automation Exercise",
+    "tags": [
+      {
+        "name": "@ui",
+        "line": 1
+      },
+      {
+        "name": "@login",
+        "line": 1
+      }
+    ],
+    "uri": "features/ui/login.feature"
+  },
+  {
+    "description": "  As a shopper\n  I want to search for products\n  So that I can find items I want to purchase",
+    "elements": [
+      {
+        "description": "",
+        "id": "product-search-on-automation-exercise;products-page-loads-with-all-products-visible",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Products page loads with all products visible",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 182675500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am on the products page",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 850257124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 12,
+            "name": "the products page should be loaded",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:59"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 14747124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "I should see at least one product listed",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:65"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9103250
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 10894249
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui",
+            "line": 1
+          },
+          {
+            "name": "@products",
+            "line": 1
+          },
+          {
+            "name": "@XRAY-103",
+            "line": 10
+          },
+          {
+            "name": "@smoke",
+            "line": 10
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "product-search-on-automation-exercise;search-for-a-product-by-keyword",
+        "keyword": "Scenario",
+        "line": 16,
+        "name": "Search for a product by keyword",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 173308958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am on the products page",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 926399542
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 17,
+            "name": "I search for the product \"Tops\"",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 540212125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 18,
+            "name": "I should see the search results heading",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:76"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15991916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "the search results should contain products",
+            "match": {
+              "location": "src/step-definitions/ui.steps.ts:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4920707
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 6779416
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui",
+            "line": 1
+          },
+          {
+            "name": "@products",
+            "line": 1
+          },
+          {
+            "name": "@XRAY-104",
+            "line": 15
+          },
+          {
+            "name": "@regression",
+            "line": 15
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "product-search-on-automation-exercise",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "Product Search on Automation Exercise",
+    "tags": [
+      {
+        "name": "@ui",
+        "line": 1
+      },
+      {
+        "name": "@products",
+        "line": 1
+      }
+    ],
+    "uri": "features/ui/products.feature"
+  }
+]
