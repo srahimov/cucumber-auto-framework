@@ -7,12 +7,12 @@ Feature: Product Search on Automation Exercise
   Background:
     Given I am on the products page
 
-  @XRAY-103 @smoke
+  @EXG-3 @smoke
   Scenario: Products page loads with all products visible
     Then the products page should be loaded
     And I should see at least one product listed
 
-  @XRAY-104 @regression
+  @EXG-4 @regression
   Scenario: Search for a product by keyword
     When I search for the product "Tops"
     Then I should see the search results heading

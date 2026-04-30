@@ -4,14 +4,14 @@ Feature: Account API on Automation Exercise
   I want to verify account management endpoints
   So that I can ensure they work correctly
 
-  @XRAY-201 @smoke
+  @EXG-5 @smoke
   Scenario: Verify login with valid credentials via API
     Given I have valid user credentials
     When I send a POST request to verify login
     Then the API response code should be 200
     And the response message should be "User exists!"
 
-  @XRAY-202 @regression
+  @EXG-6 @regression
   Scenario: Verify login with invalid credentials via API
     Given I have invalid user credentials
     When I send a POST request to verify login

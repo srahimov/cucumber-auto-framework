@@ -5,8 +5,8 @@ require('dotenv').config()
 
 const XRAY_CLIENT_ID = process.env.XRAY_CLIENT_ID
 const XRAY_CLIENT_SECRET = process.env.XRAY_CLIENT_SECRET
-const XRAY_PROJECT_KEY = process.env.XRAY_PROJECT_KEY
-const XRAY_TEST_PLAN_KEY = process.env.XRAY_TEST_PLAN_KEY
+const XRAY_PROJECT_KEY = process.env.XRAY_PROJECT_KEY || 'EXG'
+const XRAY_TEST_PLAN_KEY = process.env.XRAY_TEST_PLAN_KEY || 'EXG-9'
 const REPORT_PATH = path.join(__dirname, '../reports/cucumber-report.json')
 
 async function getXrayToken() {
@@ -19,21 +19,20 @@ async function getXrayToken() {
     },
     { headers: { 'Content-Type': 'application/json' } }
   )
-  // Response is a raw JWT string
   return response.data.replace(/"/g, '')
 }
 
 async function uploadCucumberReport(token) {
   if (!fs.existsSync(REPORT_PATH)) {
-    console.error('[Xray] ERROR: Cucumber report not found at', REPORT_PATH)
+    console.error('[Xray] ERROR: Report not found at', REPORT_PATH)
     process.exit(1)
   }
 
   const report = JSON.parse(fs.readFileSync(REPORT_PATH, 'utf-8'))
-  console.log(`[Xray] Uploading report to Xray Cloud (Project: ${XRAY_PROJECT_KEY})...`)
+  console.log(`[Xray] Uploading to project: ${XRAY_PROJECT_KEY}, Test Plan: ${XRAY_TEST_PLAN_KEY}`)
 
   const response = await axios.post(
-    `https://xray.cloud.getxray.app/api/v2/import/execution/cucumber`,
+    'https://xray.cloud.getxray.app/api/v2/import/execution/cucumber',
     report,
     {
       headers: {
@@ -49,7 +48,7 @@ async function uploadCucumberReport(token) {
 
   console.log('[Xray] Upload successful!')
   console.log('[Xray] Test Execution Key:', response.data.key)
-  console.log(`[Xray] View at: https://your-instance.atlassian.net/browse/${response.data.key}`)
+  console.log(`[Xray] View results: https://your-instance.atlassian.net/browse/${response.data.key}`)
   return response.data
 }
 
