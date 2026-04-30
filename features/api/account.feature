@@ -15,5 +15,5 @@ Feature: Account API on Automation Exercise
   Scenario: Verify login with invalid credentials via API
     Given I have invalid user credentials
     When I send a POST request to verify login
-    Then the API response code should be 200
+    Then the API response code should be 404
     And the response message should be "User not found!"
